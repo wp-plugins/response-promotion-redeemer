@@ -26,7 +26,9 @@ class ShortcodesEditorSelector{
 	}
 	
 	function registerTmcePlugin($plugin_array){
-		$plugin_array[$this->buttonName] = plugins_url() . '/response-promo-redeemer/includes/js/editor_plugin.js.php';
+		define('RM_PLUGIN_SLUG', 'response-promo-redeemer');
+		define('RM_PLUGIN_DIR', WP_PLUGIN_URL.'/'.RM_PLUGIN_SLUG.'/');	
+		$plugin_array[$this->buttonName] = RM_PLUGIN_DIR.'/includes/js/editor_plugin.js.php';
 		if ( get_user_option('rich_editing') == 'true') 
 		 	
 		return $plugin_array;
