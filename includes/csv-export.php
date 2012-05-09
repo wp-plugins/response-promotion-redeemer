@@ -4,7 +4,6 @@
 	******************************/
 	define('RM_PLUGIN_SLUG', 'response-promo-redeemer');
 	define('RM_PLUGIN_DIR', WP_PLUGIN_URL.'/'.RM_PLUGIN_SLUG.'/');	
-    $dirNAME = plugin_dir_url( __FILE__ );
 	define('RM_SITE', 'thepowertoprovoke.com');
 	
 	if(!function_exists('fn_rm_csv_export')){
