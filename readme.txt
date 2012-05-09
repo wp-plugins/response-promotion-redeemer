@@ -4,7 +4,7 @@ Donate link: http://thepowertoprovoke.com/lets-talk/
 Tags: promotion, promo, promo portal, coupon codes, partner promotion
 Requires at least: 3.3.2
 Tested up to: 3.3.2
-Stable tag: trunk
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
