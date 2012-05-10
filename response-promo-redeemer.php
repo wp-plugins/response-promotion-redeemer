@@ -3,7 +3,7 @@
 Plugin Name: Response Promo Redeemer
 Plugin URI: http://promo-redeemer.thepowertoprovoke.com
 Description: This plugin was developed to streamline the Promotion Code Redemption process for businesses. It will integrate with and external database for cross-domain inclusion of partner promotions, create a querystring redirect to partner sites or generate an email to the person redeeming a promotion code with instructions for the partner site. It allows you to re-skin each page with the apropriate artwork for an individualized partner relationship.
-Version: 1.3
+Version: 1.2
 Author: Bryan Bielefeldt at Response Marketing in New Haven CT
 Author URI: http://thepowertoprovoke.com
 License: 
