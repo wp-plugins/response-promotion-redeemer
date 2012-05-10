@@ -41,8 +41,72 @@ if ($promo_options['enable'] == true) {
 	}
 	
 	include('includes/form-shortcodes.php'); // add form and shorcode selector to wysiwyg for post tye pormo
-	include('includes/install-dbase.php'); // install database for each promo and insert contents from csv
+	/******************************
+	* install db
+	******************************/
 	
+	// run the install scripts upon plugin activation
+	class rpr_promo_table {
+		 static function rpr_install($post_ID) {
+		   global $wpdb;
+		   global $post;
+		   global $rpr_db_version;
+		   global $table_name;
+		   $table_name .= '_'.$post->ID;
+			$data_count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $table_name" ) );
+		   if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) { $sql = "CREATE TABLE $table_name (
+			  id mediumint(9) NOT NULL AUTO_INCREMENT,
+			  time_entered datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+			  our_code tinytext NOT NULL,
+			  partner_code text NOT NULL,
+			  user_email VARCHAR(55) DEFAULT 'Not Used',
+			  user_name VARCHAR(55) DEFAULT 'Not Used',
+			  UNIQUE KEY id (id)
+				);";
+				require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+			   dbDelta($sql);
+			 
+			   add_option("rpr_db_version", $rpr_db_version);
+		   }
+		   if ($wpdb->get_var("SHOW TABLES LIKE '$table_name';") == $table_name && $data_count <= "0" ) {
+
+				$ptype = get_post_meta( $post->ID, 'ptype', true );
+				$thefile = get_post_meta($post->ID, 'post_media', true);
+				
+				$myfileurl = $thefile['url'];
+				$fileName = basename($myfileurl);
+				
+				$row = 1;
+				if (($handle = fopen($myfileurl, "r")) !== FALSE) {
+					while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+						$num = count($data);
+						$our_code;
+						$partner_code;
+						if($row > 1) {
+							//echo "<p> $num fields in line $row: <br /></p>\n";
+							for ($c=0; $c < $num; $c++) {
+								//echo $data[$c] . "_".$c."<br />\n";
+								if ($c == 0) { $our_code = $data[$c]; }
+								else if ($c == 1) { $partner_code = $data[$c]; }
+							}
+							//$rows_afected = $wpdb->insert( $table_name, array('partner_type' => 'test','time_entered' => current_time('mysql'), 'redirect_url' => 'test', 'our_code' => 'test', 'partner_code' => 'test' ) );
+						
+						   global $wpdb;
+						   global $table_name;
+						   $rows_affected = $wpdb->insert( $table_name, array('time_entered' => current_time('mysql'), 'our_code' => $our_code, 'partner_code' => $partner_code) );
+						}
+						$row++;
+					}
+					fclose($handle);
+				}
+					
+		   }
+		   
+		}
+	}
+	
+	
+	add_action( 'edit_post', array('rpr_promo_table', 'rpr_install') );
 	//custom meta box
 	 
 	// Hook into WordPress
@@ -156,13 +220,15 @@ if ($promo_options['enable'] == true) {
 		} 
 		
 	}
-	//file upload
-	function post_media() {
-		global $wpdb;
-		global $post;
+//file upload
+function post_media() {
+ 			
+    		global $post;
+global $wpdb;
+    wp_nonce_field(plugin_basename(__FILE__), 'wp_custom_noncename');
+ 
 		global $table_name;
 		$table_name .= '_'.$post->ID;
-		wp_nonce_field(plugin_basename(__FILE__), 'wp_promo_noncename');
 		$dirNAME = plugin_dir_url( __FILE__ );
 		$thefile = get_post_meta($post->ID, 'post_media', true);
 		$redURL = get_post_meta( $post->ID, 'redURL', true );
@@ -170,7 +236,7 @@ if ($promo_options['enable'] == true) {
 			if ($thefile['url']) {
 				$myfileurl = $thefile['url'];
 				$fileName = basename($myfileurl);
-				echo '<a href="http://logitech/wp-admin/tools.php?page=export&rmcsv='.$table_name.'" target="_blank" ><img src="'. $dirNAME . 'includes/images/Excel2007Logo.gif" height="40px" style="float:left; margin-right:10px;"></a><div style="font-size:15px; font-weight:bold;padding:10px 0px;">'.$table_name.'.csv</div><div style="clear:both;"></div>';
+				echo '<a href="tools.php?page=export&rmcsv='.$table_name.'" target="_blank" ><img src="'. $dirNAME . 'includes/images/Excel2007Logo.gif" height="40px" style="float:left; margin-right:10px;"></a><div style="font-size:15px; font-weight:bold;padding:10px 0px;">'.$table_name.'.csv</div><div style="clear:both;"></div>';
 				
 				
 				$data_count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $table_name" ) );
@@ -183,11 +249,87 @@ if ($promo_options['enable'] == true) {
 				}
 				
 			} else {
-				$view = '<input id="data_count" name="data_count" type="hidden" value="1"/><input id="post_media" type="file" name="post_media" value="' . $thefile . '" size="25" /></br>'; 
-				echo $view;
-				echo 'please upload a .CSV file or <a href="' . $dirNAME . '/includes/Template.csv" target="_blank" >Click here</a> to download the template';
-			}
-	} // end post_media
+    $view = '<input id="post_media" type="file" name="post_media" value="' . get_post_meta($post->ID, 'post_media', true) . '" size="25" />';
+ 
+    echo $view;
+    echo 'please upload a .CSV file or <a href="' . $dirNAME . '/includes/Template.csv" target="_blank" >Click here</a> to download the template';
+}
+ 
+} // end post_media
+function update_custom_meta_data($id, $data_key, $is_file = false) {
+ 
+    if($is_file) {
+ 
+        if(!empty($_FILES[$data_key]['name'])) {
+            add_filter('upload_mimes', 'javiervd_filter_mime_types');
+function javiervd_filter_mime_types($mimes)
+{
+  return array('csv' => 'text/csv');
+}
+            $overrides = array( 'test_form' => false);
+            $upload = wp_handle_upload($_FILES[$data_key], $overrides);
+ 
+            if(isset($upload['error'])) {
+                wp_die('There was an error uploading your file. Please try again.'.$upload['error']);
+            } else {
+                add_post_meta($id, $data_key, $upload);
+                update_post_meta($id, $data_key, $upload);
+            } // end if/else
+ 
+        } // end if
+ 
+    } else {
+ 
+        $data = $_POST[$data_key];
+        add_post_meta($id, $data_key, $data);
+        update_post_meta($id, $data_key, $data);
+ 
+    } // end if/else
+ 
+} // end update_data
+
+
+
+function save_custom_meta_data($id) {
+ 
+    /* --- security verification --- */
+    if(!wp_verify_nonce($_POST['wp_custom_noncename'], plugin_basename(__FILE__))) {
+      return $id;
+    } // end if
+ 
+    if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+      return $id;
+    } // end if
+ 
+    if('page' == $_POST['post_type']) {
+      if(!current_user_can('edit_page', $id)) {
+        return $id;
+      } // end if
+    } else {
+        if(!current_user_can('edit_page', $id)) {
+            return $id;
+        } // end if
+    } // end if
+    /* - end security verification - */
+ 
+    update_custom_meta_data($id, 'post_media', true);
+} // end
+add_action('save_post', 'save_custom_meta_data');
+
+	
+	add_action('save_post', 'save_custom_meta_data'); 
+	function register_admin_scripts() {
+	 
+		wp_register_script('promo_admin_script', plugin_dir_url( __FILE__ ) . 'includes/js/admin.js');
+		wp_enqueue_script('promo_admin_script');
+	 
+	} // end register_scripts
+	add_action('admin_enqueue_scripts', 'register_admin_scripts');
+
+
+
+
+
 	// display codes and related users
 	function list_the_codes() {
 		global $wpdb;
@@ -224,68 +366,6 @@ if ($promo_options['enable'] == true) {
 		echo '</table>'; 
 	}
 	
-	/******************************
-	* update and save metabox information
-	******************************/
-	function update_promo_meta_data($id, $data_key, $is_file = false) {
-	 
-		if($is_file) {
-	 
-			if(!empty($_FILES[$data_key]['name'])) {
-	 
-				$upload = wp_handle_upload($_FILES[$data_key], array('test_form' => false));
-	 
-				if(isset($upload['error'])) {
-					wp_die('There was an error uploading your file. Please try again.');
-				} else {
-					add_post_meta($id, $data_key, $upload);
-					update_post_meta($id, $data_key, $upload);
-				} // end if/else
-	 
-			} // end if
-	 
-		} else {
-	 
-			$data = $_POST[$data_key];
-			add_post_meta($id, $data_key, $data);
-			update_post_meta($id, $data_key, $data);
-			
-	 
-		} // end if/else
-	 
-	} // end update_data
-	function save_promo_meta_data($id) {
-	 
-		/* --- security verification --- */
-		if(!wp_verify_nonce($_POST['wp_promo_noncename'], plugin_basename(__FILE__))) {
-		  return $id;
-		} // end if
-	 
-		if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-		  return $id;
-		} // end if
-	 
-		if('promo' == $_POST['post_type']) {
-		  if(!current_user_can('edit_page', $id)) {
-			return $id;
-		  } // end if
-		} else {
-			if(!current_user_can('edit_page', $id)) {
-				return $id;
-			} // end if
-		} // end if
-		/* - end security verification - */
-	 
-		update_promo_meta_data($id, 'post_media', true);
-	} // end
-	add_action('save_post', 'save_promo_meta_data'); 
-	function register_admin_scripts() {
-	 
-		wp_register_script('promo_admin_script', plugin_dir_url( __FILE__ ) . '/includes/js/admin.js');
-		wp_enqueue_script('promo_admin_script');
-	 
-	} // end register_scripts
-	add_action('admin_enqueue_scripts', 'register_admin_scripts');
 	/**
 	 * Process the custom metabox fields
 	 */

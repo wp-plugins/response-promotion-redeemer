@@ -26,7 +26,7 @@ class rpr_promo_table {
 		 
 		   add_option("rpr_db_version", $rpr_db_version);
 	   } 
-	   if ($wpdb->get_var("SHOW TABLES LIKE '$table_name';") == $table_name && $data_count <= "0" ) {
+	   if ($wpdb->get_var("SHOW TABLES LIKE '$table_name';") == $table_name && $data_count <= "0" ) { 
 			$ptype = get_post_meta( $post->ID, 'ptype', true );
 			$thefile = get_post_meta($post->ID, 'post_media', true);
 			

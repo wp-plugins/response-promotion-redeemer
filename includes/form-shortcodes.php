@@ -28,7 +28,7 @@ class ShortcodesEditorSelector{
 	function registerTmcePlugin($plugin_array){
 		define('RM_PLUGIN_SLUG', 'response-promo-redeemer');
 		define('RM_PLUGIN_DIR', WP_PLUGIN_URL.'/'.RM_PLUGIN_SLUG.'/');	
-		$plugin_array[$this->buttonName] = RM_PLUGIN_DIR.'/includes/js/editor_plugin.js.php';
+		$plugin_array[$this->buttonName] = '/wp-content/plugins/response-promotion-redeemer/includes/js/editor_plugin.js.php';
 		if ( get_user_option('rich_editing') == 'true') 
 		 	
 		return $plugin_array;
@@ -77,7 +77,7 @@ function promo_form( $atts, $content = null ) {
       'attr_2' => 'attribute 2 default',
       // ...etc
       ), $atts ) );
-	  $form = '<div class="message" style="display:none; position:absolute;top:0px; left:0px; width:100%;"><div id="alert" style="padding:10px; border:1px solid #999; background-color:#E7E7E7;"></div></div>';
+	  $form = '<div class="message" style="display:none; "><div id="alert" style="padding:10px; border:1px solid #999; background-color:#E7E7E7;"></div></div>';
 	  $form .= '<form id="contactform" class="appnitro"  method="post" action="'.$wp_wall_plugin_url.'/promo-codes.php"><ul>';
 	  $form .= '<li id="li_1" ><label class="description" for="name"><span class="listTitle">Name: </span></label><div><input id="name" name="name" class="element text medium fullwidth" type="text" maxlength="255" value=""/> </div> </li>';
 	  $form .= '<li id="li_10_0" ><label class="description" for="email"><span class="listTitle">Email: </span></label><div><input id="email" name="email" class="element text medium fullwidth" type="text" maxlength="255" value=""/> </div> </li>';
@@ -101,7 +101,7 @@ function promo_form( $atts, $content = null ) {
 	  }
 		$form .= '<input type="hidden" name="pID" value="'.$post->ID.'" id="" />
 	  ';
-	  $form .= '<li class="buttons"><input type="image" name="submit" class="sendit" src="img/images/submit.png" width="153" height="57"> </li>';
+	  $form .= '<li class="buttons"><input type="submit" name="submit" class="sendit promo_submit"> </li>';
 	  $form .= '</ul></form><script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script><script type="text/javascript" src="'.$wp_wall_plugin_url.'/js/jquery.form.js"></script><script type="text/javascript" src="'.$wp_wall_plugin_url.'/js/jquery.formfooter.js"></script>';
 	  return $form;
 }
