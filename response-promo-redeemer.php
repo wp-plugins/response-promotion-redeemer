@@ -6,7 +6,7 @@ Description: This plugin was developed to streamline the Promotion Code Redempti
 Version: 1.0.0
 Author: Bryan Bielefeldt at Response Marketing in New Haven CT
 Author URI: http://promo-redeemer.thepowertoprovoke.com
-License: 
+License: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 /******************************
