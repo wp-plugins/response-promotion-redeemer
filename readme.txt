@@ -44,6 +44,12 @@ From the edit page/promo screen you can either click the excel icon in the "Add 
 = 1.0 =
 * Initial Release.
 
+= 1.2 =
+*getting thins working
+
+= 1.3 =
+*First stable release
+
 
 == Arbitrary section ==
 
