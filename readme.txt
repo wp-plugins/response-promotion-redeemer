@@ -50,6 +50,7 @@ From the edit page/promo screen you can either click the excel icon in the "Add 
 = 1.3 =
 *First stable release
 
+
 == Arbitrary section ==
 
 For more information about Response Promotion Redeemer or Response Marketing, please contact us at http://thepowertoprovoke.com/lets-talk/
