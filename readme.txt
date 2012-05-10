@@ -26,7 +26,7 @@ custom content type page called Promo. You will enter the Partner Portal URL (th
 
 = How do I get the form to show to the user? =
 
-From the edit page/promo screen select the "Visual" tab and select "promo-form" from the Promo Codes Dropdown in the WYSIWYG editor.
+From the edit page/promo screen select the "Visual" tab and select and copy "[promo-form]" from the Promo Codes short codes meta-box and paste it into your editor where you would like the form to be displayed.
 
 = Who do I export the current user base and information? =
 
