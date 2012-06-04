@@ -3,7 +3,7 @@
 Plugin Name: Response Promo Redeemer
 Plugin URI: http://wordpress.org/extend/plugins/response-promotion-redeemer/
 Description: This plugin was developed to streamline the Promotion Code Redemption process for businesses. It will integrate with and external database for cross-domain inclusion of partner promotions, create a querystring redirect to partner sites or generate an email to the person redeeming a promotion code with instructions for the partner site. It allows you to re-skin each page with the apropriate artwork for an individualized partner relationship.
-Version: 1.0.0
+Version: 1.0.1
 Author: Bryan Bielefeldt at Response Marketing in New Haven CT
 Author URI: http://promo-redeemer.thepowertoprovoke.com
 License: http://www.gnu.org/licenses/gpl-2.0.html
@@ -57,7 +57,7 @@ if ($promo_options['enable'] == true) {
 		   if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) { $sql = "CREATE TABLE $table_name (
 			  id mediumint(9) NOT NULL AUTO_INCREMENT,
 			  time_entered datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-			  our_code tinytext NOT NULL,
+			  our_code text NOT NULL,
 			  partner_code text NOT NULL,
 			  user_email VARCHAR(55) DEFAULT 'Not Used',
 			  user_name VARCHAR(55) DEFAULT 'Not Used',
@@ -71,7 +71,7 @@ if ($promo_options['enable'] == true) {
 		   $thefile = get_post_meta($post->ID, 'post_media', true);
 		   $myfileurl = $thefile;
 		   if ($wpdb->get_var("SHOW TABLES LIKE '$table_name';") == $table_name && $data_count <= "0" && $myfileurl == true) {
-
+				
 				$ptype = get_post_meta( $post->ID, 'ptype', true );
 				
 				
@@ -93,7 +93,12 @@ if ($promo_options['enable'] == true) {
 							//$rows_afected = $wpdb->insert( $table_name, array('partner_type' => 'test','time_entered' => current_time('mysql'), 'redirect_url' => 'test', 'our_code' => 'test', 'partner_code' => 'test' ) );
 						
 						   global $wpdb;
-						   global $table_name;
+						   global $table_name;	
+						   $our_code = str_replace("1", "*%", $our_code, $count);
+						   $our_code = str_replace("5", "/&*o", $our_code, $count);	
+						   
+						   $partner_code = str_replace("6", "*%", $partner_code, $count);
+						   $partner_code = str_replace("2", "/&*o", $partner_code, $count);					
 						   $rows_affected = $wpdb->insert( $table_name, array('time_entered' => current_time('mysql'), 'our_code' => $our_code, 'partner_code' => $partner_code) );
 						}
 						$row++;
@@ -305,6 +310,11 @@ add_filter('upload_mimes', 'custom_upload_mimes');
 		
 		echo $thead;
 		foreach ( $fivesdrafts as $fivesdraft ) {
+		   $our_code = str_replace("*%", "1", $fivesdraft->our_code, $count);
+		   $our_code = str_replace("/&*o", "5", $our_code, $count);	
+		   
+		   $partner_code = str_replace("*%", "6", $fivesdraft->partner_code, $count);
+		   $partner_code = str_replace("/&*o", "2", $partner_code, $count);
 		  echo '<tr style="border-bottom:1px solid #ccc;">';
 		  if ($fivesdraft->user_name != 'Not Used') {
 			  echo '<td width="2%" align="center" bgcolor="#99CCFF"><strong>'.$fivesdraft->id.'</strong></td>';
@@ -316,11 +326,11 @@ add_filter('upload_mimes', 'custom_upload_mimes');
 			  echo '<td width="10%">'.$fivesdraft->user_name.'</td>';
 		  }
 		  if ($fivesdraft->user_name != 'Not Used') {
-			  echo '<td width="10%"><span style=" text-decoration:line-through;">'.$fivesdraft->our_code.'</span></td>';
-			  echo '<td width="10%"><span style=" text-decoration:line-through;">'.$fivesdraft->partner_code.'</span></td>';
+			  echo '<td width="10%"><span style=" text-decoration:line-through;">'.$our_code.'</span></td>';
+			  echo '<td width="10%"><span style=" text-decoration:line-through;">'.$partner_code.'</span></td>';
 		  } else {
-			  echo '<td width="10%">'.$fivesdraft->our_code.'</td>';
-			  echo '<td width="10%">'.$fivesdraft->partner_code.'</td>';
+			  echo '<td width="10%">'.$our_code.'</td>';
+			  echo '<td width="10%">'.$partner_code.'</td>';
 		  }
 		  echo '</tr>';
 		}
