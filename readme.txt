@@ -44,7 +44,7 @@ From the edit page/promo screen you can either click the excel icon in the "Add 
 = 1.0.0 =
 * Initial Release.
 
-= 1.0.0 =
+= 1.0.1 =
 * Adding simple promo code encrytion.
 
 
