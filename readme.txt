@@ -4,7 +4,7 @@ Donate link: http://thepowertoprovoke.com/lets-talk/
 Tags: promotion, promo, promo portal, coupon codes, partner promotion
 Requires at least: 3.3.2
 Tested up to: 3.3.2
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,11 @@ From the edit page/promo screen you can either click the excel icon in the "Add 
 = 1.0.1 =
 * Adding simple promo code encrytion.
 
+= 1.0.2 =
+* Added back the includes folder
+
+= 1.0.3 =
+* editing csv export errors
 
 == Arbitrary section ==
 
