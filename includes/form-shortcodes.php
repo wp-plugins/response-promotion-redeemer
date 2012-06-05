@@ -40,7 +40,7 @@ function promo_form( $atts, $content = null ) {
 	  $form .= '<form id="contactform" class="appnitro"  method="post" action="'.$wp_wall_plugin_url.'/promo-codes.php"><ul>';
 	  $form .= '<li id="li_1" ><label class="description" for="name"><span class="listTitle">Name: </span></label><div><input id="name" name="name" class="element text medium fullwidth" type="text" maxlength="255" value=""/> </div> </li>';
 	  $form .= '<li id="li_10_0" ><label class="description" for="email"><span class="listTitle">Email: </span></label><div><input id="email" name="email" class="element text medium fullwidth" type="text" maxlength="255" value=""/> </div> </li>';
-	  $form .= '<li id="li_2" ><label class="description" for="license"><span class="listTitle">Redemption Code: </span></label><div><input id="license" name="license" class="element text medium fullwidth" type="text" maxlength="255" value=""/> </div> </li>';
+	  $form .= '<li id="li_2" ><label class="description" for="license"><span class="listTitle">Redemption Code: </span></label><div><input id="license" name="license" class="element text medium fullwidth" type="password" maxlength="255" value=""/> </div> </li>';
 	  $form .= '<span style="display:none;"><p>Honeypot:</p> <input type="text" name="last" value="" id="last" /></span>';
 	  $form .= '
 	  	<input type="hidden" name="tablename" value="'.$table_name.'" id="" />
