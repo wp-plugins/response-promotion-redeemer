@@ -92,10 +92,10 @@ if ( empty($_REQUEST['last']) ) {
 		$alert .= "<li>" . $alertlicense . "</li>";
 	} elseif ($data_count == 0 || $data_count > 1) {
 		$pass = 1;
-		$alert .= "<li>" . $invalidlicense . " ... data count</li>";
+		$alert .= "<li>" . $invalidlicense . " ...</li>";
 	} elseif ($user_email != 'Not Used' || $user_name != 'Not Used') {
 		$pass = 1;
-		$alert .= "<li>" . $invalidlicense . "  ... user and email is set</li>";
+		$alert .= "<li>" . $invalidlicense . "  ...</li>";
 	}
 	if ( empty($_REQUEST['email']) ) {
 		$pass = 1;
