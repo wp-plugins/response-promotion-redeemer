@@ -42,6 +42,12 @@ From the edit page/promo screen select the "Visual" tab and select and copy "[pr
 
 From the edit page/promo screen you can either click the excel icon in the "Add Promo.csv File" tab on the right or you can click the "Download The complete .CSV file here" in the blue bar under the main WYSIWYG editor.
 
+= Before you upload your .csv file... =
+
+Be absolutely positive that you DO NOT have duplicate codes, if there are duplicates you will get invalid promo code errors on the fromt end for the duplicated codes. The plugin is developed so that once you upload you .csv you cannot change it, if you could you would run into issues with database over/rewrites.
+
+I have found that comma separated .CSV files saved on a mac will cause the import function to break. Be sure to save your .CSV files out as a "Windows Comma Separated (.csv)" if you are using a mac. Also Note: there is a link to download a template .CSV file in the right meta sidebar of the edit page window. when you create a new page or promo
+
 == Screenshots ==
 
 1. Response Promotion Redemption Options page
