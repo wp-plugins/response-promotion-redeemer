@@ -4,7 +4,7 @@ Donate link: http://thepowertoprovoke.com/lets-talk/
 Tags: promotion, promo, promo portal, coupon codes, partner promotion
 Requires at least: 3.3.2
 Tested up to: 3.3.2
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,6 +23,7 @@ When a code is used then the user name and email will be stored in the db and di
 Note: once you upload a CSV you cannot change it, mainly be cause if you uploaded another csv it would over right your currently used codes and user info(the plugin won't allow you to do that by design). 
 
 The plugin also creates a short code selector in the WYSIWYG editor so theta you can embed the form into the actual page/promo. The plugin takes it from there.
+
 
 
 == Installation ==
@@ -66,6 +67,11 @@ From the edit page/promo screen you can either click the excel icon in the "Add 
 * changed promo code input field to password type
 * removed text from alert field
 
+= 1.0.5 =
+* Correct misspelling
+
 == Arbitrary section ==
 
 For more information about Response Promotion Redeemer or Response Marketing, please contact us at http://thepowertoprovoke.com/lets-talk/
+
+[youtube http://www.youtube.com/watch?v=l_FtdtZaQrA]

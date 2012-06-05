@@ -154,7 +154,7 @@ if ( empty($_REQUEST['last']) ) {
 
 		mail($sendto, $subject, $message, $header);
 //This is for javascript, 
-	    $instructions = clean_var($_REQUEST['name']) . ", thankyou for redeeming your promotion\n";
+	    $instructions = clean_var($_REQUEST['name']) . ", thankyou for redeeming your promotion.\n";
 		$instructions .= "The information provded to finish the process is listed below and will be emailed to, " . clean_var($_REQUEST['email']) . "<br><br>";
 		if ($ptype == 'Query') {
 			$instructions .= "To redeem your promotion got to <a href='{$theQUERY}' target='_blank'>" . $redURL . "</a>, ";
