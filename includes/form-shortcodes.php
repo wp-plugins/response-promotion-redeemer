@@ -60,7 +60,7 @@ function promo_form( $atts, $content = null ) {
 	  }
 		$form .= '<input type="hidden" name="pID" value="'.$post->ID.'" id="" />
 	  ';
-	  $form .= '<li class="buttons"><input type="submit" name="submit" class="sendit promo_submit"> </li>';
+	  $form .= '<li class="buttons"><input type="submit" name="submit" class="sendit promo_submit" value="SUBMIT"> </li>';
 	  $form .= '</ul></form><script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script><script type="text/javascript" src="'.$wp_wall_plugin_url.'/js/jquery.form.js"></script><script type="text/javascript" src="'.$wp_wall_plugin_url.'/js/jquery.formfooter.js"></script>';
 	  return $form;
 }
