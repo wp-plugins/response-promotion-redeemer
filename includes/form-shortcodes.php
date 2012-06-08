@@ -32,7 +32,7 @@ function promo_form( $atts, $content = null ) {
 	}
 	
    extract( shortcode_atts( array(
-      'attr_1' => 'attribute 1 default',
+      'end_message' => '',
       'attr_2' => 'attribute 2 default',
       // ...etc
       ), $atts ) );
@@ -46,7 +46,8 @@ function promo_form( $atts, $content = null ) {
 	  	<input type="hidden" name="tablename" value="'.$table_name.'" id="" />
 		<input type="hidden" name="from_email" value="'.$from.'" id="" />
 		<input type="hidden" name="ptype" value="'.$ptype.'" id="" />
-		<input type="hidden" name="redURL" value="'.$redURL.'" id="" />';
+		<input type="hidden" name="redURL" value="'.$redURL.'" id="" />
+		<input type="hidden" name="end_message" value="'.esc_attr($end_message).'" id="" />';
 	  if ($ptype == 'Connect') {
 		$form .= '<input type="hidden" name="conURL" value="'.$conURL.'" id="" />
 		<input type="hidden" name="conNAME" value="'.$conNAME.'" id="" />
@@ -54,7 +55,8 @@ function promo_form( $atts, $content = null ) {
 		<input type="hidden" name="conUSER" value="'.$conUSER.'" id="" />
 		<input type="hidden" name="conPASSWORD" value="'.$conPASSWORD.'" id="" />
 		<input type="hidden" name="conQSTRING" value="'.$conQSTRING.'" id="" />
-		<input type="hidden" name="queURL" value="'.$queURL.'" id="" />';
+		<input type="hidden" name="queURL" value="'.$queURL.'" id="" />
+		<input type="hidden" name="end_message" value="'.esc_attr($end_message).'" id="" />';
 	  } else if ($ptype == 'Query') {
 		$form .= '<input type="hidden" name="queV1" value="'.$queV1.'" id="" /><input type="hidden" name="queV2" value="'.$queV2.'" id="" /><input type="hidden" name="queV3" value="'.$queV3.'" id="" />';
 	  }

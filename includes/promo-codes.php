@@ -17,6 +17,7 @@ $sendFrom = $_REQUEST['from_email'];
 $redURL = $_REQUEST['redURL'];
 $table_name = $_REQUEST['tablename'] ;
 $ptype = $_REQUEST['ptype'] ;
+$end_message = $_REQUEST['end_message'] ;
 
 
 //        The subject you'll see in your inbox
@@ -121,17 +122,16 @@ if ( empty($_REQUEST['last']) ) {
 		$time = current_time('mysql');
 		$email = $_REQUEST['email'];
 		$name = $_REQUEST['name'];
-		$p_code = str_replace("6", "*%", $partner_code, $count);
-		$p_code = str_replace("2", "/&*o", $$p_code, $count);	
+		$p_code = $partner_code;
 		$wpdb->update( $table_name, array('time_entered' => $time, 'user_email' => $email, 'user_name' => $name), array( 'partner_code' => $p_code ), array( '%s', '%s', '%s'), array( '%s' ) );
 		//Construct the message.
-		$message = "\n\nA promotion portal code has been submitted at ".$the_referer.".\n\n";
+		$message = "\n\nA gift code has been submitted at ".$the_referer.".\n\n";
 	    $message .= "From: " . clean_var($_REQUEST['name']) . "\n";
 		$message .= "Email: " . clean_var($_REQUEST['email']) . "\n\n\n";
 		$message .= "Logitech Promotion Code: " . clean_var($_REQUEST['license']) . "\n\n\n";
 		
-		$message .= "To redeem your promotion got to " . $redURL . "\n";
-	    $message .= "And enter the code, ".$partner_code. " to complete the process";
+		$message .= "Go to " . $redURL . "\n";
+	    $message .= "and enter the code, ".$partner_code. " to complete the process and ". $end_message;
 		
 	    $header = 'From:'. $sendFrom;
 		$headers .= 'Bcc: '. $bcc . "\r\n";
@@ -154,14 +154,14 @@ if ( empty($_REQUEST['last']) ) {
 
 		mail($sendto, $subject, $message, $header);
 //This is for javascript, 
-	    $instructions = clean_var($_REQUEST['name']) . ", thankyou for redeeming your promotion.\n";
-		$instructions .= "The information provded to finish the process is listed below and will be emailed to, " . clean_var($_REQUEST['email']) . "<br><br>";
+	    $instructions = clean_var($_REQUEST['name']) . ", thank you for entering your gift code.\n";
+		$instructions .= "The information needed to complete the process is listed below and will be emailed to, " . clean_var($_REQUEST['email']) . "<br><br>";
 		if ($ptype == 'Query') {
-			$instructions .= "To redeem your promotion got to <a href='{$theQUERY}' target='_blank'>" . $redURL . "</a>, ";
+			$instructions .= "Go to <a href='{$theQUERY}' target='_blank'>" . $redURL . "</a>, ";
 		} else {
-			$instructions .= "To redeem your promotion got to <a href='{$redURL}' target='_blank'>" . $redURL . "</a>, ";
+			$instructions .= "Go to <a href='{$redURL}' target='_blank'>" . $redURL . "</a>, ";
 		}
-	    $instructions .= " and enter the code: ".$partner_code;
+	    $instructions .= " and enter the code: ".$partner_code .' '. $end_message;
 		echo "<script>$(\".message\").hide(\"slow\").show(\"slow\").animate({opacity: 1.0}, 4000); $(':input').clearForm() </script>";
 		echo $instructions."<br>";
 		//echo $thanks;
