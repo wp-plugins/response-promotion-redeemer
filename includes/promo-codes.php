@@ -122,7 +122,9 @@ if ( empty($_REQUEST['last']) ) {
 		$time = current_time('mysql');
 		$email = $_REQUEST['email'];
 		$name = $_REQUEST['name'];
-		$p_code = $partner_code;
+		$p_code = str_replace("6", "*%", $partner_code, $count);
+		$p_code = str_replace("2", "/&*o", $p_code, $count);
+		echo $p_code;
 		$wpdb->update( $table_name, array('time_entered' => $time, 'user_email' => $email, 'user_name' => $name), array( 'partner_code' => $p_code ), array( '%s', '%s', '%s'), array( '%s' ) );
 		//Construct the message.
 		$message = "\n\nA gift code has been submitted at ".$the_referer.".\n\n";

@@ -4,7 +4,7 @@ Donate link: http://thepowertoprovoke.com/lets-talk/
 Tags: promotion, promo, promo portal, coupon codes, partner promotion
 Requires at least: 3.3.2
 Tested up to: 3.3.2
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,8 +76,12 @@ I have found that comma separated .CSV files saved on a mac will cause the impor
 = 1.0.5 =
 * Correct misspelling
 
-= 1.0.5 =
+= 1.0.6 =
 * Correct misspellings and included end_message sttribute to form shortcode to be diplayed in the email and the post submit thankyou message for more information regarding the end_message attribute for the shortcode please message Bryan at www.facebook.com/bryan.bielefeldt.
+
+= 1.0.7 =
+* Correct db update issues.
+
 
 == Arbitrary section ==
 
