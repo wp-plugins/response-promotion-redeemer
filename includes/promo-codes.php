@@ -18,6 +18,7 @@ $redURL = $_REQUEST['redURL'];
 $table_name = $_REQUEST['tablename'] ;
 $ptype = $_REQUEST['ptype'] ;
 $end_message = $_REQUEST['end_message'] ;
+$start_message = $_REQUEST['start_message'] ;
 
 
 //        The subject you'll see in your inbox
@@ -124,16 +125,16 @@ if ( empty($_REQUEST['last']) ) {
 		$name = $_REQUEST['name'];
 		$p_code = str_replace("6", "*%", $partner_code, $count);
 		$p_code = str_replace("2", "/&*o", $p_code, $count);
-		echo $p_code;
+		//echo $p_code;
 		$wpdb->update( $table_name, array('time_entered' => $time, 'user_email' => $email, 'user_name' => $name), array( 'partner_code' => $p_code ), array( '%s', '%s', '%s'), array( '%s' ) );
 		//Construct the message.
-		$message = "\n\nA gift code has been submitted at ".$the_referer.".\n\n";
-	    $message .= "From: " . clean_var($_REQUEST['name']) . "\n";
-		$message .= "Email: " . clean_var($_REQUEST['email']) . "\n\n\n";
-		$message .= "Logitech Promotion Code: " . clean_var($_REQUEST['license']) . "\n\n\n";
-		
-		$message .= "Go to " . $redURL . "\n";
-	    $message .= "and enter the code, ".$partner_code. " to complete the process and ". $end_message;
+		$start_message = str_replace("<br />", "\r", $start_message);
+		$end_message = str_replace("<br />", "\r", $end_message);
+		$start_message = str_replace("<nl />", "\n\n", $start_message);
+		$end_message = str_replace("<nl />", "\n\n", $end_message);
+		$message = $start_message . "";
+	    $message .= ", go to " . $redURL . "\n";
+	    $message .= "and enter the code, " . $partner_code . $end_message;
 		
 	    $header = 'From:'. $sendFrom;
 		$headers .= 'Bcc: '. $bcc . "\r\n";

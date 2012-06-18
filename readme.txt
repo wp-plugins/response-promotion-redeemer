@@ -3,8 +3,8 @@ Contributors: bielefeldt
 Donate link: http://thepowertoprovoke.com/lets-talk/
 Tags: promotion, promo, promo portal, coupon codes, partner promotion
 Requires at least: 3.3.2
-Tested up to: 3.3.2
-Stable tag: 1.0.7
+Tested up to: 3.4
+Stable tag: 1.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,15 @@ The plugin also creates a short code selector in the WYSIWYG editor so theta you
 
 1. Upload `response-promotion-redeemer` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
+
+Form short-code:
+
+[promo-form]
+attr 1 = start_message="This is the message to be used in the beginig of your email" 
+attr 2 = end_message="This is the message to be used in the end of your email and confirmation display message on the front end to users"
+
+adding "<nl />" in either attribute will create a paragraph break in you plaintext email
+adding "<br />" in either attribute will create a line break in you plaintext email
 
 == Frequently Asked Questions ==
 
@@ -81,6 +90,9 @@ I have found that comma separated .CSV files saved on a mac will cause the impor
 
 = 1.0.7 =
 * Correct db update issues.
+
+= 1.0.8 =
+* Added extra form shortcode attributes (start_message and end_message) to be used in the confirmation displayed and emailed to user.
 
 
 == Arbitrary section ==

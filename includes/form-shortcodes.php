@@ -4,8 +4,6 @@
 * add shortcodes
 ******************************/
 
-
-
 function promo_form( $atts, $content = null ) {
 	$wp_wall_plugin_url = trailingslashit( get_bloginfo('wpurl') ).PLUGINDIR.'/'. dirname( plugin_basename(__FILE__) );
 	global $wpdb;
@@ -32,8 +30,8 @@ function promo_form( $atts, $content = null ) {
 	}
 	
    extract( shortcode_atts( array(
-      'end_message' => '',
-      'attr_2' => 'attribute 2 default',
+      'start_message' => 'A gift code has been submitted at '.$_SERVER["HTTP_REFERER"].'.',
+	  'end_message' => '',
       // ...etc
       ), $atts ) );
 	  $form = '<div class="message" style="display:none; "><div id="alert" style="padding:10px; border:1px solid #999; background-color:#E7E7E7;"></div></div>';
@@ -47,6 +45,7 @@ function promo_form( $atts, $content = null ) {
 		<input type="hidden" name="from_email" value="'.$from.'" id="" />
 		<input type="hidden" name="ptype" value="'.$ptype.'" id="" />
 		<input type="hidden" name="redURL" value="'.$redURL.'" id="" />
+		<input type="hidden" name="start_message" value="'.esc_attr($start_message).'" id="" />
 		<input type="hidden" name="end_message" value="'.esc_attr($end_message).'" id="" />';
 	  if ($ptype == 'Connect') {
 		$form .= '<input type="hidden" name="conURL" value="'.$conURL.'" id="" />
@@ -56,6 +55,7 @@ function promo_form( $atts, $content = null ) {
 		<input type="hidden" name="conPASSWORD" value="'.$conPASSWORD.'" id="" />
 		<input type="hidden" name="conQSTRING" value="'.$conQSTRING.'" id="" />
 		<input type="hidden" name="queURL" value="'.$queURL.'" id="" />
+		<input type="hidden" name="start_message" value="'.esc_attr($start_message).'" id="" />
 		<input type="hidden" name="end_message" value="'.esc_attr($end_message).'" id="" />';
 	  } else if ($ptype == 'Query') {
 		$form .= '<input type="hidden" name="queV1" value="'.$queV1.'" id="" /><input type="hidden" name="queV2" value="'.$queV2.'" id="" /><input type="hidden" name="queV3" value="'.$queV3.'" id="" />';
