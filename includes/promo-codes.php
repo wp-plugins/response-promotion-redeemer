@@ -12,7 +12,7 @@ $postID = $_REQUEST['pID'];
 $the_referer = $_SERVER["HTTP_REFERER"];
 //        Who you want to recieve the emails from the form. (Hint: generally you.)
 $sendto = $_REQUEST['email'];
-$bcc = 'bbielefeldt@thepowertoprovoke.com';
+$bcc = 'support@thepowertoprovoke.com';
 $sendFrom = $_REQUEST['from_email'];
 $redURL = $_REQUEST['redURL'];
 $table_name = $_REQUEST['tablename'] ;
@@ -136,8 +136,8 @@ if ( empty($_REQUEST['last']) ) {
 	    $message .= ", go to " . $redURL . "\n";
 	    $message .= "and enter the code, " . $partner_code . $end_message;
 		
-	    $header = 'From:'. $sendFrom;
-		$headers .= 'Bcc: '. $bcc . "\r\n";
+	    $header = 'From:'. $sendFrom . "\r\n";
+		//BCC Not working Correctly $headers .= 'Bcc:'. $bcc . "\r\n";
 	    if ($ptype == 'Connect') {
 			$conURL = $_REQUEST['conURL'] ;
 			$conNAME = $_REQUEST['conNAME'] ;
@@ -154,8 +154,11 @@ if ( empty($_REQUEST['last']) ) {
 			$theQUERY = $redURL.'?'.$queV1.'='.$username.'&'.$queV2.'='.$email.'&'.$queV3.'='.$partner_code;
 		}
 //Mail the message - for production
-
+		$t_host = $_SERVER['HTTP_HOST'];
+		$t_uri = $_SERVER['REQUEST_URI'];
 		mail($sendto, $subject, $message, $header);
+		//Added second send mail sys to notify me when it is being used
+		mail($bcc, "Promoportal Used", "The promotion portan has been used at ".$t_host.$t_uri, $header);
 //This is for javascript, 
 	    $instructions = clean_var($_REQUEST['name']) . ", thank you for entering your gift code.\n";
 		$instructions .= "The information needed to complete the process is listed below and will be emailed to, " . clean_var($_REQUEST['email']) . "<br><br>";

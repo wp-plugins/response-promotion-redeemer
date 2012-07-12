@@ -3,8 +3,8 @@ Contributors: bielefeldt
 Donate link: http://thepowertoprovoke.com/lets-talk/
 Tags: promotion, promo, promo portal, coupon codes, partner promotion
 Requires at least: 3.3.2
-Tested up to: 3.4
-Stable tag: 1.0.8
+Tested up to: 3.4.1
+Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,8 @@ I have found that comma separated .CSV files saved on a mac will cause the impor
 = 1.0.8 =
 * Added extra form shortcode attributes (start_message and end_message) to be used in the confirmation displayed and emailed to user.
 
+= 1.0.9 =
+* Repair to notification system
 
 == Arbitrary section ==
 
