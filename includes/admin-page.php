@@ -1,8 +1,8 @@
 <?php
 // include plugin styles
 
-wp_enqueue_style('rpr-styles', plugin_dir_url( __FILE__ ) . 'css/plugin_styles.css');
-add_action('wp_enqueue_scripts', 'rpr_load_scripts');
+// bad calls wp_enqueue_style('rpr-styles', plugin_dir_url( __FILE__ ) . 'css/plugin_styles.css');
+// bad calls add_action('wp_enqueue_scripts', 'rpr_load_scripts');
 
  function promo_options_page() {
 
